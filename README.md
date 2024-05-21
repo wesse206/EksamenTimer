@@ -1,5 +1,5 @@
 <h1>Eksamen Timer op 'n website</h1>
-<h3>Die program is beskikbaar op <a href="https://wesse206.github.io/WebTimer">https://wesse206.github.io/WebTimer</a></h3>
+<h3>Die program is beskikbaar op <a href="https://wesse206.github.io/EksamenTimer">https://wesse206.github.io/EksamenTimer</a></h3>
 
 <p>Basically 'n eksamen timer geskryf in javasctipt, html en css.</p>
 <p>W3CSS word gebruik om alles mooi te laat lyk.</p>
