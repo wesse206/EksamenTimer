@@ -1,3 +1,4 @@
+// The three main blocks
 {
   var timerBlock = document.getElementById('timerBlock')
   var opskrifBlock = document.getElementById('opskrifBlock')
