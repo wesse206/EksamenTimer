@@ -52,12 +52,12 @@ function startTimer() {
 
     let progress = document.getElementById('progress')
     
-    if ((document.getElementById('leestyd').checked) && (distance < initialDistance - 10)) {
-      progress.style.width = (100 - distance / initialDistance * 100) + '%'
+    if ((document.getElementById('leestyd').checked) && (distance > initialDistance - (leestyd * 60 * 1000))) {
+      progress.style.width = (((initialDistance - distance) / (leestyd * 60 * 1000)) * 100) + '%'
       leestydText.style.display = 'inline'
     }
     else {
-      progress.style.width = (100 - distance / initialDistance * 100) + '%'
+      progress.style.width = (100 - distance / (initialDistance - leestyd * 60 * 1000) * 100) + '%'
       leestydText.style.display = 'none'
     }
 
