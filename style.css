@@ -1,3 +1,44 @@
+.timer {
+    font-size: 15vw; 
+    display: none; 
+    justify-content: center;
+}
+
+.timeInputBox{
+    display: flex; 
+    flex-direction: row; 
+    justify-content: center;
+}
+
+.timeInput {
+    font-size: 15vw; 
+    width: 25vw;
+}
+
+.timerStartStop {
+    font-size: 2.5vw;
+}
+
+.progressbarOutline {
+    overflow: hidden; 
+    display: block; 
+    text-align: center; 
+    position: relative;
+}
+
+.progressbarBar {
+    height: 50px; 
+    width: 0%; 
+    padding: 0;
+}
+
+.progressbarText {
+    position: absolute; 
+    top: 25%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+}
+
 .switch {
     position: relative;
     display: inline-block;

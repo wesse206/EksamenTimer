@@ -1,26 +1,112 @@
-// The three main blocks
+// Loads the entire DOM to variables on initialization. This hopefully betters performance.
 {
+  // Main Blocks
   var timerBlock = document.getElementById('timerBlock')
   var opskrifBlock = document.getElementById('opskrifBlock')
   var riglyneBlock = document.getElementById('riglyneBlock')
-}
+  var settingsDialog = document.getElementById('settings')
 
-// Block for all that has to happen when the timer has to be initialized.
-{
-  var timer
-
+  // Timer Elements
   var hoursInput = document.getElementById('hours')
   var minsInput = document.getElementById('mins')
-
+  var startTimerButton = document.getElementById('startTimer')
+  var stopTimerButton = document.getElementById('stopTimer')
+  var timeInput = document.getElementById('time')
+  var timeOutput = document.getElementById('timer')
+  var progress = document.getElementById('progress')
   var leestydText = document.getElementById('leestydText')
 
+  // Heading Elements
+  var vakText = document.getElementById('vakText')
+  var leerdernaamText = document.getElementById('leerdernaamText')
+  var seksieText = document.getElementById('seksieText')
+  var onderwyserkodeText = document.getElementById('onderwyserkodeText')
+  var datumText = document.getElementById('datumText')
+
+  // Settings Elements
+  var leestydCheckbox = document.getElementById('leestyd')  
+  var vak = document.getElementById('vak')
+  var leerdernaam = document.getElementById('leerdernaam')
+  var seksie = document.getElementById('seksie')
+  var onderwyserkode = document.getElementById('onderwyserkode')
+  var datum = document.getElementById('datum')
+}
+
+// Event Listeners
+{
+  hoursInput.addEventListener('keypress', function (event) { 
+    if (event.key === 'Enter') { 
+      startTimer() 
+    } 
+  })
+
+  minsInput.addEventListener('keypress', function (event) { 
+    if (event.key === 'Enter') { 
+      startTimer() 
+    } 
+  })
+
+  hoursInput.addEventListener('click', function () { 
+    hoursInput.select() 
+  })
+
+  minsInput.addEventListener('click', function () { 
+    minsInput.select() 
+  })
+
+  vak.addEventListener('keyup', function () {
+    if (vak.value !== '') {
+      vakText.innerHTML = vak.value
+    }
+    else {
+      vakText.innerHTML = 'Vak'
+    }
+  })
+
+  leerdernaam.addEventListener('keyup', function () {
+    if (leerdernaam.value !== '') {
+      leerdernaamText.innerHTML = leerdernaam.value
+    }
+    else {
+      leerdernaamText.innerHTML = 'Naam en Van'
+    }
+  })
+
+  seksie.addEventListener('keyup', function () {
+    if (seksie.value !== '') {
+      seksieText.innerHTML = seksie.value
+    }
+    else {
+      seksieText.innerHTML = 'Klas'
+    }
+  })
+
+  onderwyserkode.addEventListener('keyup', function () {
+    if (onderwyserkode.value !== '') {
+      onderwyserkodeText.innerHTML = onderwyserkode.value
+    }
+    else {
+      onderwyserkodeText.innerHTML = 'Onderwyser Kode'
+    }
+  })
+
+  datum.addEventListener('keyup', function () {
+    if (datum.value !== '') {
+      datumText.innerHTML = datum.value
+    }
+    else {
+      var today = new Date()
+      datumText.innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
+    }
+  })
+}
+
+// Misc code for starup
+{
   hoursInput.select()
 
-  hoursInput.addEventListener('keypress', function (event) { if (event.key === 'Enter') { startTimer() } })
-  minsInput.addEventListener('keypress', function (event) { if (event.key === 'Enter') { startTimer() } })
-
-  hoursInput.addEventListener('click', function () { hoursInput.select() })
-  minsInput.addEventListener('click', function () { minsInput.select() })
+  let today = new Date()
+  datumText.innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 function displayTimer() {
@@ -30,13 +116,13 @@ function displayTimer() {
 }
 
 function startTimer() {
-  document.getElementById('leestyd').disabled = true
+  leestydCheckbox.disabled = true
 
-  document.getElementById('startTimer').style.display = 'none'
-  document.getElementById('stopTimer').style.display = 'inline'
+  startTimerButton.style.display = 'none'
+  stopTimerButton.style.display = 'inline'
 
-  document.getElementById('time').style.display = 'none'
-  document.getElementById('timer').style.display = 'flex'
+  timeInput.style.display = 'none'
+  timeOutput.style.display = 'flex'
 
   // Validation just incase no values are in the inputs.
   {
@@ -49,7 +135,7 @@ function startTimer() {
   }
 
   let leestyd = 0
-  if (document.getElementById('leestyd').checked) {
+  if (leestydCheckbox.checked) {
     leestyd = 10
   }
 
@@ -65,9 +151,7 @@ function startTimer() {
     // Find the distance between now and the count down date
     var distance = countDownDate - now
 
-    let progress = document.getElementById('progress')
-
-    if ((document.getElementById('leestyd').checked) && (distance > initialDistance - (leestyd * 60 * 1000))) {
+    if ((leestydCheckbox.checked) && (distance > initialDistance - (leestyd * 60 * 1000))) {
       progress.style.width = (((initialDistance - distance) / (leestyd * 60 * 1000)) * 100) + '%'
       leestydText.style.display = 'inline'
     }
@@ -92,96 +176,34 @@ function startTimer() {
     seconds = pad(seconds)
 
     if ((hours <= 0) && (minutes <= 0) && (seconds <= 0)) {
-      document.getElementById("timer").innerHTML = "00:00:00";
-      document.getElementById('progress').style.width = '100%'
-      document.getElementById('progress').classList.add('flash')
+      timeOutput.innerHTML = "00:00:00";
+      progress.style.width = '100%'
+      progress.classList.add('flash')
       clearInterval(timer)
     }
     else {
       // Display the result in the element with id="timer"
-      document.getElementById("timer").innerHTML = hours + ":"
+      timeOutput.innerHTML = hours + ":"
         + minutes + ":" + seconds
     }
-
-
   }, 100);
 }
 
 function stopTimer() {
   clearInterval(timer)
   leestydText.style.display = 'none'
-  document.getElementById('progress').style.width = '0%'
-  document.getElementById('progress').classList.remove('flash')
+  progress.style.width = '0%'
+  progress.classList.remove('flash')
+  progress.style.width = '0%'
 
-  document.getElementById('leestyd').disabled = false
+  leestydCheckbox.disabled = false
+  timeOutput.innerHTML = "00:00:00"  
 
-  document.getElementById("timer").innerHTML = "00:00:00"
-  document.getElementById('progress').style.width = '0%'
+  startTimerButton.style.display = 'inline'
+  stopTimerButton.style.display = 'none'
 
-  document.getElementById('startTimer').style.display = 'inline'
-  document.getElementById('stopTimer').style.display = 'none'
-
-  document.getElementById('time').style.display = 'flex'
-  document.getElementById('timer').style.display = 'none'
-}
-
-// All that is needed to initialize opskrif block
-{
-  var vak = document.getElementById('vak')
-  var leerdernaam = document.getElementById('leerdernaam')
-  var seksie = document.getElementById('seksie')
-  var onderwyserkode = document.getElementById('onderwyserkode')
-  var datum = document.getElementById('datum')
-
-  var today = new Date()
-  document.getElementById('datumText').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
-
-  vak.addEventListener('keyup', function () {
-    if (vak.value !== '') {
-      document.getElementById('vakText').innerHTML = vak.value
-    }
-    else {
-      document.getElementById('vakText').innerHTML = 'Vak'
-    }
-  })
-
-  leerdernaam.addEventListener('keyup', function () {
-    if (leerdernaam.value !== '') {
-      document.getElementById('leerdernaamText').innerHTML = leerdernaam.value
-    }
-    else {
-      document.getElementById('leerdernaamText').innerHTML = 'Naam en Van'
-    }
-  })
-
-  seksie.addEventListener('keyup', function () {
-    if (seksie.value !== '') {
-      document.getElementById('seksieText').innerHTML = seksie.value
-    }
-    else {
-      document.getElementById('seksieText').innerHTML = 'Klas'
-    }
-  })
-
-  onderwyserkode.addEventListener('keyup', function () {
-    if (onderwyserkode.value !== '') {
-      document.getElementById('onderwyserkodeText').innerHTML = onderwyserkode.value
-    }
-    else {
-      document.getElementById('onderwyserkodeText').innerHTML = 'Onderwyser Kode'
-    }
-  })
-
-  datum.addEventListener('keyup', function () {
-    if (datum.value !== '') {
-      document.getElementById('datumText').innerHTML = datum.value
-    }
-    else {
-      var today = new Date()
-      document.getElementById('datumText').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
-    }
-  })
-
+  timeInput.style.display = 'flex'
+  timeOutput.style.display = 'none'
 }
 
 function displayOpskrif() {
@@ -190,19 +212,16 @@ function displayOpskrif() {
   riglyneBlock.style.display = 'none'
 }
 
-
-function settings() {
-  let settingsDialog = document.getElementById('settings')
-  settingsDialog.showModal()
-}
-
-function closeSettings() {
-  let settingsDialog = document.getElementById('settings')
-  settingsDialog.close()
-}
-
 function displayRiglyne() {
   timerBlock.style.display = 'none'
   opskrifBlock.style.display = 'none'
   riglyneBlock.style.display = 'block'
+}
+
+function settings() {
+  settingsDialog.showModal()
+}
+
+function closeSettings() {
+  settingsDialog.close()
 }

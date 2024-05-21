@@ -3,7 +3,7 @@
 
 <p>Basically 'n eksamen timer geskryf in javasctipt, html en css.</p>
 <p>W3CSS word gebruik om alles mooi te laat lyk.</p>
-<p>Die html is hopelik eenvoudig genoeg dat RTT kinders dit kan verstaan.</p>
+<p>Die html is eenvoudig genoeg dat matriek RTT kinders dit kan verstaan wat al html behandel het.</p>
 <br />
 <ul>Notas oor gebruik:</ul>
   <li>Die twee inputs op die timer is ure en minute</li>
