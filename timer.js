@@ -1,5 +1,13 @@
-// Block for all that has to happen when the site has to be initialized.
 {
+  var timerBlock = document.getElementById('timerBlock')
+  var opskrifBlock = document.getElementById('opskrifBlock')
+  var riglyneBlock = document.getElementById('riglyneBlock')
+}
+
+// Block for all that has to happen when the timer has to be initialized.
+{
+  var timer
+
   var hoursInput = document.getElementById('hours')
   var minsInput = document.getElementById('mins')
 
@@ -14,8 +22,14 @@
   minsInput.addEventListener('click', function () { minsInput.select() })
 }
 
-let timer
+function displayTimer() {
+  timerBlock.style.display = 'block'
+  opskrifBlock.style.display = 'none'
+  riglyneBlock.style.display = 'none'
+}
+
 function startTimer() {
+  document.getElementById('leestyd').disabled = true
 
   document.getElementById('startTimer').style.display = 'none'
   document.getElementById('stopTimer').style.display = 'inline'
@@ -51,7 +65,7 @@ function startTimer() {
     var distance = countDownDate - now
 
     let progress = document.getElementById('progress')
-    
+
     if ((document.getElementById('leestyd').checked) && (distance > initialDistance - (leestyd * 60 * 1000))) {
       progress.style.width = (((initialDistance - distance) / (leestyd * 60 * 1000)) * 100) + '%'
       leestydText.style.display = 'inline'
@@ -78,18 +92,28 @@ function startTimer() {
 
     if ((hours <= 0) && (minutes <= 0) && (seconds <= 0)) {
       document.getElementById("timer").innerHTML = "00:00:00";
-      clearInterval(x)
+      document.getElementById('progress').style.width = '100%'
+      document.getElementById('progress').classList.add('flash')
+      clearInterval(timer)
+    }
+    else {
+      // Display the result in the element with id="timer"
+      document.getElementById("timer").innerHTML = hours + ":"
+        + minutes + ":" + seconds
     }
 
-    // Display the result in the element with id="timer"
-    document.getElementById("timer").innerHTML = hours + ":"
-      + minutes + ":" + seconds
+
   }, 100);
 }
 
 function stopTimer() {
   clearInterval(timer)
   leestydText.style.display = 'none'
+  document.getElementById('progress').style.width = '0%'
+  document.getElementById('progress').classList.remove('flash')
+
+  document.getElementById('leestyd').disabled = false
+
   document.getElementById("timer").innerHTML = "00:00:00"
   document.getElementById('progress').style.width = '0%'
 
@@ -100,24 +124,60 @@ function stopTimer() {
   document.getElementById('timer').style.display = 'none'
 }
 
-function displayTimer() {
-  document.getElementById('timerBlock').style.display = 'block'
-  document.getElementById('opskrifBlock').style.display = 'none'
-  document.getElementById('riglyneBlock').style.display = 'none'
+// All that is needed to initialize opskrif block
+{
+  var vak = document.getElementById('vak')
+  var leerdernaam = document.getElementById('leerdernaam')
+  var seksie = document.getElementById('seksie')
+  var onderwyserkode = document.getElementById('onderwyserkode')
+
+  vak.addEventListener('keyup', function () {
+    if (vak.value !== '') {
+      document.getElementById('vakText').innerHTML = vak.value
+    }
+    else {
+      document.getElementById('vakText').innerHTML = 'Vak'
+    }
+  })
+
+  leerdernaam.addEventListener('keyup', function () {
+    if (leerdernaam.value !== '') {
+      document.getElementById('leerdernaamText').innerHTML = leerdernaam.value
+    }
+    else {
+      document.getElementById('leerdernaamText').innerHTML = 'Naam en Van'
+    }
+  })
+
+  seksie.addEventListener('keyup', function () {
+    if (seksie.value !== '') {
+      document.getElementById('seksieText').innerHTML = seksie.value
+    }
+    else {
+      document.getElementById('seksieText').innerHTML = 'Klas'
+    }
+  })
+
+  onderwyserkode.addEventListener('keyup', function () {
+    if (onderwyserkode.value !== '') {
+      document.getElementById('onderwyserkodeText').innerHTML = onderwyserkode.value
+    }
+    else {
+      document.getElementById('onderwyserkodeText').innerHTML = 'Onderwyser Kode'
+    }
+  })
+
 }
+
 function displayOpskrif() {
   var today = new Date()
   document.getElementById('datum').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
 
-  document.getElementById('timerBlock').style.display = 'none'
-  document.getElementById('opskrifBlock').style.display = 'block'
-  document.getElementById('riglyneBlock').style.display = 'none'
+  timerBlock.style.display = 'none'
+  opskrifBlock.style.display = 'block'
+  riglyneBlock.style.display = 'none'
 }
-function displayRiglyne() {
-  document.getElementById('timerBlock').style.display = 'none'
-  document.getElementById('opskrifBlock').style.display = 'none'
-  document.getElementById('riglyneBlock').style.display = 'block'
-}
+
 
 function settings() {
   let settingsDialog = document.getElementById('settings')
@@ -127,4 +187,10 @@ function settings() {
 function closeSettings() {
   let settingsDialog = document.getElementById('settings')
   settingsDialog.close()
+}
+
+function displayRiglyne() {
+  timerBlock.style.display = 'none'
+  opskrifBlock.style.display = 'none'
+  riglyneBlock.style.display = 'block'
 }
