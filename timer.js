@@ -3,6 +3,8 @@
   var hoursInput = document.getElementById('hours')
   var minsInput = document.getElementById('mins')
 
+  var leestydText = document.getElementById('leestydText')
+
   hoursInput.select()
 
   hoursInput.addEventListener('keypress', function (event) { if (event.key === 'Enter') { startTimer() } })
@@ -31,7 +33,12 @@ function startTimer() {
     }
   }
 
-  countDownDate = Date.now() + (parseInt(hoursInput.value) * 60 * 60 + parseInt(minsInput.value) * 60) * 1000
+  let leestyd = 0
+  if (document.getElementById('leestyd').checked) {
+    leestyd = 10
+  }
+
+  countDownDate = Date.now() + (parseInt(hoursInput.value) * 60 * 60 + (parseInt(minsInput.value) + leestyd) * 60) * 1000
   initialDistance = countDownDate - Date.now()
 
   timer = setInterval(function () {
@@ -43,7 +50,16 @@ function startTimer() {
     // Find the distance between now and the count down date
     var distance = countDownDate - now
 
-    document.getElementById('progress').style.width = (100 - distance / initialDistance * 100) + '%'
+    let progress = document.getElementById('progress')
+    
+    if ((document.getElementById('leestyd').checked) && (distance < initialDistance - 10)) {
+      progress.style.width = (100 - distance / initialDistance * 100) + '%'
+      leestydText.style.display = 'inline'
+    }
+    else {
+      progress.style.width = (100 - distance / initialDistance * 100) + '%'
+      leestydText.style.display = 'none'
+    }
 
     // Time calculations for days, hours, minutes and seconds
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
@@ -73,6 +89,7 @@ function startTimer() {
 
 function stopTimer() {
   clearInterval(timer)
+  leestydText.style.display = 'none'
   document.getElementById("timer").innerHTML = "00:00:00"
   document.getElementById('progress').style.width = '0%'
 
@@ -100,4 +117,14 @@ function displayRiglyne() {
   document.getElementById('timerBlock').style.display = 'none'
   document.getElementById('opskrifBlock').style.display = 'none'
   document.getElementById('riglyneBlock').style.display = 'block'
+}
+
+function settings() {
+  let settingsDialog = document.getElementById('settings')
+  settingsDialog.showModal()
+}
+
+function closeSettings() {
+  let settingsDialog = document.getElementById('settings')
+  settingsDialog.close()
 }

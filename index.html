@@ -5,6 +5,7 @@
   <title>Eksamen Timer</title>
   <link rel="icon" type="image/x-icon" href="./logo.png" />
   <link rel="stylesheet" href="./w3.css" />
+  <link rel="stylesheet" href="./style.css"
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -16,13 +17,14 @@
 
     <div id="time" class="w3-center w3-margin w3-padding"
       style="display: flex; flex-direction: row; justify-content: center;">
-      <input id="hours" class="w3-center" style="font-size: 15vw; width: 25vw;" type="text" value="00" />
+      <input id="hours" class="w3-center w3-round-large" style="font-size: 15vw; width: 25vw;" type="text" value="00" />
       <h1 class="w3-center" style="font-size: 15vw;">:</h1>
-      <input id="mins" class="w3-center" style="font-size: 15vw; width: 25vw;" type="text" value="00" />
+      <input id="mins" class="w3-center w3-round-large" style="font-size: 15vw; width: 25vw;" type="text" value="00" />
     </div>
 
-    <div class="w3-light-grey w3-margin w3-round-xxlarge" style="overflow: hidden;">
+    <div class="w3-light-grey w3-margin w3-round-xxlarge" style="overflow: hidden; display: block; text-align: center; position: relative;">
       <div id="progress" class="w3-container w3-black" style="height: 50px; width: 0%; padding: 0;"></div>
+      <h3 id="leestydText" style="display: none; position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);">Leestyd</h3>
     </div>
 
     <div class="w3-center">
@@ -81,7 +83,23 @@
     <a class="w3-text w3-text-light w3-button w3-xlarge w3-round-large" onclick="displayTimer()">Timer</a>
     <a class="w3-text w3-text-light w3-button w3-xlarge w3-round-large" onclick="displayOpskrif()">Opskrif</a>
     <a class="w3-text w3-text-light w3-button w3-xlarge w3-round-large" onclick="displayRiglyne()">Riglyne</a>
+    <a class="w3-white w3-button w3-right w3-margin w3-round-large " style="width: 7%; max-width: 100px;"><img class="w3-image w3-center" width="100%" src="./settings.png" onclick="settings()" /></a>
   </div>
+
+  <dialog style="padding: 0; width: 80%;" id="settings">
+    <div style="display: block;">
+      <div class="w3-cell w3-button w3-right" onclick="closeSettings()">X</div>
+
+      <div class="w3-cell-middle w3-padding">
+        <div class="w3-cell-row" style="display: inline;">
+          <h2 class="w3-text w3-cell w3-padding w3-center">Leestyd</h2>
+          <div class="w3-cell w3-right">
+            <label class="switch w3-center w3-padding w3-margin"><input id="leestyd" type="checkbox" /><span class="slider round"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
 
   <!-- Javascript file for the timer functions. The app is useless without it. -->
   <script type="text/javascript" src="./timer.js"></script>
