@@ -3,15 +3,36 @@
     "name": "Eksamen Timer",
     "icons": [
       {
-        "src": "/logo.png",
-        "type": "image/pnl",
-        "sizes": "2969x3645"
+        "src": "icon.ico",
+        "type": "image/x-icon",
+        "sizes": "256x256",
+        "purpose": "any"
+      },
+      {
+        "src": "icon.png",
+        "type": "image/png",
+        "sizes": "3645x3645",
+        "purpose": "maskable"
       }
     ],
     "id": "/",
-    "background_color": "#00000",
+    "start_url":"/",
+    "background_color": "#FFFFFF",
     "display": "standalone",
     "scope": "/",
-    "theme_color": "#FFFFFF",
-    "description": "Durbanville se eie Eksamen Timer vir skryf lokale"
+    "theme_color": "white",
+    "description": "Durbanville se eie Eksamen Timer vir skryf lokale",
+    "screenshots": [
+        {
+          "src": "screenshot1.png",
+          "type": "image/png",
+          "sizes": "1597x725",
+          "form_factor": "wide"
+        },
+        {
+            "src": "screenshot2.png",
+            "type": "image/png",
+            "sizes": "929x725"
+          }
+    ]
   }
