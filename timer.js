@@ -131,6 +131,10 @@ function stopTimer() {
   var leerdernaam = document.getElementById('leerdernaam')
   var seksie = document.getElementById('seksie')
   var onderwyserkode = document.getElementById('onderwyserkode')
+  var datum = document.getElementById('datum')
+
+  var today = new Date()
+  document.getElementById('datumText').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
 
   vak.addEventListener('keyup', function () {
     if (vak.value !== '') {
@@ -168,12 +172,19 @@ function stopTimer() {
     }
   })
 
+  datum.addEventListener('keyup', function () {
+    if (datum.value !== '') {
+      document.getElementById('datumText').innerHTML = datum.value
+    }
+    else {
+      var today = new Date()
+      document.getElementById('datumText').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
+    }
+  })
+
 }
 
 function displayOpskrif() {
-  var today = new Date()
-  document.getElementById('datum').innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
-
   timerBlock.style.display = 'none'
   opskrifBlock.style.display = 'block'
   riglyneBlock.style.display = 'none'
