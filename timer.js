@@ -1,7 +1,17 @@
-document.getElementById('hours').select()
-document.getElementById('hours').addEventListener('keypress', function (event) {if (event.key === 'Enter') { startTimer() }})
-document.getElementById('mins').addEventListener('keypress', function (event) {if (event.key === 'Enter') { startTimer() }})
-  
+// Block for all that has to happen when the site has to be initialized.
+{
+  var hoursInput = document.getElementById('hours')
+  var minsInput = document.getElementById('mins')
+
+  hoursInput.select()
+
+  hoursInput.addEventListener('keypress', function (event) { if (event.key === 'Enter') { startTimer() } })
+  minsInput.addEventListener('keypress', function (event) { if (event.key === 'Enter') { startTimer() } })
+
+  hoursInput.addEventListener('click', function () { hoursInput.select() })
+  minsInput.addEventListener('click', function () { minsInput.select() })
+}
+
 let timer
 function startTimer() {
 
@@ -11,9 +21,17 @@ function startTimer() {
   document.getElementById('time').style.display = 'none'
   document.getElementById('timer').style.display = 'flex'
 
-  //var time = document.getElementById('timer').innerHTML.split(':')
+  // Validation just incase no values are in the inputs.
+  {
+    if (hoursInput.value === '') {
+      hoursInput.value = '00'
+    }
+    if (minsInput.value === '') {
+      minsInput.value = '00'
+    }
+  }
 
-  countDownDate = Date.now() + (parseInt(document.getElementById('hours').value) * 60 * 60 + parseInt(document.getElementById('mins').value) * 60) * 1000
+  countDownDate = Date.now() + (parseInt(hoursInput.value) * 60 * 60 + parseInt(minsInput.value) * 60) * 1000
   initialDistance = countDownDate - Date.now()
 
   timer = setInterval(function () {
@@ -42,21 +60,20 @@ function startTimer() {
     minutes = pad(minutes)
     seconds = pad(seconds)
 
+    if ((hours <= 0) && (minutes <= 0) && (seconds <= 0)) {
+      document.getElementById("timer").innerHTML = "00:00:00";
+      clearInterval(x)
+    }
+
     // Display the result in the element with id="timer"
     document.getElementById("timer").innerHTML = hours + ":"
       + minutes + ":" + seconds
-
-    // If the count down is finished, write some text
-    if (distance < 0) {
-      clearInterval(x)
-      document.getElementById("timer").innerHTML = "Tyd is verby!!";
-    }
   }, 100);
 }
 
 function stopTimer() {
   clearInterval(timer)
-  document.getElementById("timer").innerHTML = "00:05:00"
+  document.getElementById("timer").innerHTML = "00:00:00"
   document.getElementById('progress').style.width = '0%'
 
   document.getElementById('startTimer').style.display = 'inline'
