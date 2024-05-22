@@ -193,7 +193,16 @@ function startTimer(cookie='') {
     minutes = pad(minutes)
     seconds = pad(seconds)
 
-    if ((hours <= 0) && (minutes <= 0) && (seconds <= 0)) {
+    if ((hours <= 0) && (minutes <= 0) && (seconds <= 0) && !(hours == 'Nan')) {
+      timeOutput.innerHTML = "00:00:00";
+      progress.style.width = '100%'
+      progress.classList.add('flash')
+      document.cookie = "time=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
+      document.cookie = "distance=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
+      clearInterval(timer)
+    }
+    else if (hours == 'NaN'){
+      
       timeOutput.innerHTML = "00:00:00";
       progress.style.width = '100%'
       progress.classList.add('flash')
