@@ -15,8 +15,7 @@
         "purpose": "maskable"
       }
     ],
-    "id": "/EksamenTimer/",
-    "start_url":"/EksamenTimer/",
+    "start_url":"https://wesse206.github.io/EksamenTimer",
     "background_color": "#FFFFFF",
     "display": "standalone",
     "scope": "/EksamenTimer/",
