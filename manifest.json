@@ -15,11 +15,11 @@
         "purpose": "maskable"
       }
     ],
-    "id": "/",
-    "start_url":"/",
+    "id": "/EksamenTimer/",
+    "start_url":"/EksamenTimer/",
     "background_color": "#FFFFFF",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/EksamenTimer/",
     "theme_color": "white",
     "description": "Durbanville se eie Eksamen Timer vir skryf lokale",
     "screenshots": [
