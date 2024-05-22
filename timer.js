@@ -107,6 +107,13 @@
 
   let today = new Date()
   datumText.innerHTML = today.toLocaleDateString('en-ZA', { year: 'numeric', month: 'long', day: 'numeric' })
+
+  if (document.cookie != '') {
+    let cookie = document.cookie.split(';')
+    if (cookie[0].split('=')[1] >= Date.now()) {
+      startTimer(cookie)
+    }
+  }
 }
 
 function displayTimer() {
@@ -115,7 +122,7 @@ function displayTimer() {
   riglyneBlock.style.display = 'none'
 }
 
-function startTimer() {
+function startTimer(cookie='') {
   leestydCheckbox.disabled = true
 
   startTimerButton.style.display = 'none'
@@ -139,8 +146,19 @@ function startTimer() {
     leestyd = 10
   }
 
-  countDownDate = Date.now() + (parseInt(hoursInput.value) * 60 * 60 + (parseInt(minsInput.value) + leestyd) * 60) * 1000
-  initialDistance = countDownDate - Date.now()
+  if (cookie != '')  {
+    console.log(cookie)
+    countDownDate = cookie[0].split('=')[1]
+    initialDistance = cookie[1].split('=')[1]
+  }
+  else {    
+    var countDownDate = Date.now() + (parseInt(hoursInput.value) * 60 * 60 + (parseInt(minsInput.value) + leestyd) * 60) * 1000
+    initialDistance = countDownDate - Date.now()
+    document.cookie = 'time=' + countDownDate
+    document.cookie = 'distance=' + initialDistance
+    console.log(document.cookie)
+  }
+
 
   timer = setInterval(function () {
 
@@ -179,6 +197,8 @@ function startTimer() {
       timeOutput.innerHTML = "00:00:00";
       progress.style.width = '100%'
       progress.classList.add('flash')
+      document.cookie = "time=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
+      document.cookie = "distance=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
       clearInterval(timer)
     }
     else {
@@ -190,6 +210,8 @@ function startTimer() {
 }
 
 function stopTimer() {
+  document.cookie = "time=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
+  document.cookie = "distance=;expires=Thu, 01 Jan 1970 00:00:01 GMT"
   clearInterval(timer)
   leestydText.style.display = 'none'
   progress.style.width = '0%'
