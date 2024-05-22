@@ -5,7 +5,7 @@
 <p>W3CSS word gebruik om alles mooi te laat lyk.</p>
 <p>Die html is eenvoudig genoeg dat matriek RTT kinders dit kan verstaan wat al html behandel het.</p>
 <br />
-<ul>Notas oor gebruik:</ul>
+<ul><h3>Notas oor gebruik:</h3></ul>
   <li>Die twee inputs op die timer is ure en minute</li>
   <li>Leestyd sit 10 minute van self by die timer</li>
   <li>Die timer is veronderstel om so te fade as die tyd verstreke is</li>
