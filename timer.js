@@ -50,6 +50,16 @@
     hoursInput.select() 
   })
 
+  leestydCheckbox.addEventListener('click', function () {
+    let leestyd10MinText = document.getElementById('leestyd10MinText')
+    if (leestydCheckbox.checked) {
+      leestyd10MinText.style.display = 'inline'
+    }
+    else {
+      leestyd10MinText.style.display = 'none'
+    }
+  })
+
   minsInput.addEventListener('click', function () { 
     minsInput.select() 
   })
@@ -147,7 +157,6 @@ function startTimer(cookie='') {
   }
 
   if (cookie != '')  {
-    console.log(cookie)
     countDownDate = cookie[0].split('=')[1]
     initialDistance = cookie[1].split('=')[1]
   }
@@ -156,7 +165,6 @@ function startTimer(cookie='') {
     initialDistance = countDownDate - Date.now()
     document.cookie = 'time=' + countDownDate
     document.cookie = 'distance=' + initialDistance
-    console.log(document.cookie)
   }
 
 
