@@ -32,7 +32,8 @@
         {
             "src": "screenshot2.png",
             "type": "image/png",
-            "sizes": "929x725"
+            "sizes": "929x725",
+            "form_factor": "narrow"
           }
     ]
   }
